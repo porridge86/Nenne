@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" data-theme="day" data-phase="calm">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nenne</title>
+  <meta name="description" content="Nenne helps parents track baby wake windows, feeding gaps and caffeine clearance while nursing.">
+  <meta name="theme-color" content="#dcebfa">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Nenne">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <!-- Icon sprite: Google Material Symbols (Outlined, Apache 2.0), inlined so they work offline -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-menu" viewBox="0 -960 960 960"><path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/></symbol>
+    <symbol id="i-info" viewBox="0 -960 960 960"><path d="M453-280h60v-240h-60v240Zm50.5-323.2q9.5-9.2 9.5-22.8 0-14.45-9.48-24.22-9.48-9.78-23.5-9.78t-23.52 9.78Q447-640.45 447-626q0 13.6 9.48 22.8 9.48 9.2 23.5 9.2t23.52-9.2ZM480.27-80q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z"/></symbol>
+    <symbol id="i-close" viewBox="0 -960 960 960"><path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></symbol>
+    <symbol id="i-keyboard-arrow-down" viewBox="0 -960 960 960"><path d="M480-344 240-584l43-43 197 197 197-197 43 43-240 240Z"/></symbol>
+    <symbol id="i-tune" viewBox="0 -960 960 960"><path d="M427-120v-225h60v83h353v60H487v82h-60Zm-307-82v-60h247v60H120Zm187-166v-82H120v-60h187v-84h60v226h-60Zm120-82v-60h413v60H427Zm166-165v-225h60v82h187v60H653v83h-60Zm-473-83v-60h413v60H120Z"/></symbol>
+    <symbol id="i-bedtime" viewBox="0 -960 960 960"><path d="M484-80q-84 0-157.5-32t-128-86.5Q144-253 112-326.5T80-484q0-146 93-257.5T410-880q-18 98 11 192.63 29 94.64 100 165.74 71 71.1 165.5 100.14Q781-392.45 880-410.47q-26 144.2-138 237.34Q630-80 484-80Zm0-60q100 0 182-57t132-145q-90-8-173-41.5T478.5-480Q415-543 382-625.5T341-797q-88 48-144.5 130.5T140-484q0 143.33 100.33 243.67Q340.67-140 484-140Zm-6-340Z"/></symbol>
+    <symbol id="i-wb-sunny" viewBox="0 -960 960 960"><path d="M450-810v-110h60v110h-60Zm0 770v-110h60v110h-60Zm360-410v-60h110v60H810Zm-770 0v-60h110v60H40Zm702-250-43-43 66-66 43 43-66 66ZM195-151l-43-43 66-66 43 43-66 66Zm570 0-66-66 43-43 66 66-43 43ZM218-700l-66-66 43-43 66 66-43 43Zm102.5 379.5Q255-386 255-480t65.5-159.5Q386-705 480-705t159.5 65.5Q705-574 705-480t-65.5 159.5Q574-255 480-255t-159.5-65.5ZM597-363q48-48 48-117t-48-117q-48-48-117-48t-117 48q-48 48-48 117t48 117q48 48 117 48t117-48ZM480-480Z"/></symbol>
+    <symbol id="i-schedule" viewBox="0 -960 960 960"><path d="m627-287 45-45-159-160v-201h-60v225l174 181ZM480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-82 31.5-155t86-127.5Q252-817 325-848.5T480-880q82 0 155 31.5t127.5 86Q817-708 848.5-635T880-480q0 82-31.5 155t-86 127.5Q708-143 635-111.5T480-80Zm0-400Zm0 340q140 0 240-100t100-240q0-140-100-240T480-820q-140 0-240 100T140-480q0 140 100 240t240 100Z"/></symbol>
+    <symbol id="i-hourglass-top" viewBox="0 -960 960 960"><path d="M308-140h344v-127q0-72-50-121.5T480-438q-72 0-122 49.5T308-267v127ZM160-80v-60h88v-127q0-71 40-129t106-84q-66-27-106-85t-40-129v-126h-88v-60h640v60h-88v126q0 71-40 129t-106 85q66 26 106 84t40 129v127h88v60H160Z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 -960 960 960"><path d="m421-298 283-283-46-45-237 237-120-120-45 45 165 166Zm59 218q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Zm0-60q142 0 241-99.5T820-480q0-142-99-241t-241-99q-141 0-240.5 99T140-480q0 141 99.5 240.5T480-140Zm0-340Z"/></symbol>
+    <symbol id="i-warning" viewBox="0 -960 960 960"><path d="m40-120 440-760 440 760H40Zm104-60h672L480-760 144-180Zm361.5-65.68q8.5-8.67 8.5-21.5 0-12.82-8.68-21.32-8.67-8.5-21.5-8.5-12.82 0-21.32 8.68-8.5 8.67-8.5 21.5 0 12.82 8.68 21.32 8.67 8.5 21.5 8.5 12.82 0 21.32-8.68ZM454-348h60v-224h-60v224Zm26-122Z"/></symbol>
+    <symbol id="i-edit" viewBox="0 -960 960 960"><path d="M180-180h44l472-471-44-44-472 471v44Zm-60 60v-128l575-574q8-8 19-12.5t23-4.5q11 0 22 4.5t20 12.5l44 44q9 9 13 20t4 22q0 11-4.5 22.5T823-694L248-120H120Zm659-617-41-41 41 41Zm-105 64-22-22 44 44-22-22Z"/></symbol>
+    <symbol id="i-local-cafe" viewBox="0 -960 960 960"><path d="M160-120v-60h640v60H160Zm151-140q-63 0-107-43.5T160-410v-430h660q24.75 0 42.38 17.62Q880-804.75 880-780v160q0 24.75-17.62 42.37Q844.75-560 820-560h-96v150q0 63-44 106.5T573-260H311Zm0-60h261.98q36.02 0 63.52-27.5T664-410v-370H220v370q0 35 28 62.5t63 27.5Zm413-300h96v-160h-96v160ZM311-320h-91 444-353Z"/></symbol>
+    <symbol id="i-emoji-food-beverage" viewBox="0 -960 960 960"><path d="M160-120v-60h640v60H160Zm151-140q-63 0-107-43.5T160-410v-430h660q24.75 0 42.38 17.62Q880-804.75 880-780v160q0 24.75-17.62 42.37Q844.75-560 820-560h-96v150q0 63-44 106.5T573-260H311Zm0-520h353-444 91Zm413 160h96v-160h-96v160ZM572.98-320q36.02 0 63.52-27.5T664-410v-370H397v33l71 58q1 1 9 18v150q0 9.6-7 16.8-7 7.2-18 7.2H301q-11 0-18-7.2t-7-16.8v-150q0-4 9-18l72-58v-33H220v370q0 35 28 62.5t63 27.5h261.98ZM357-780h40-40Z"/></symbol>
+    <symbol id="i-eco" viewBox="0 -960 960 960"><path d="M213-175q-43.59-45-68.3-104Q120-338 120-400q0-73 25.5-133.5T222-645q35-35 87-59t122.5-37.5Q502-755 591-758.5t198 3.5q8 108 5.5 197.5t-16 160.75q-13.5 71.25-38 124.56Q716-218.87 680-183q-51 51-110 77T444-80q-69 0-126.5-23.5T213-175Zm103 0q25 17 58 26t69.92 9Q497-140 547-162t91-64q27-27 46-70.5t31-103Q727-459 731-534t0-165q-94-2-168.5 2.5T431-680q-57 12-98 30.5T266-604q-42 43-64 91t-22 98q0 48 20.5 100.5T251-230q53-98 127-176t157-123q-87 75-141 162.5T316-175Zm0 0Zm0 0Z"/></symbol>
+    <symbol id="i-local-drink" viewBox="0 -960 960 960"><path d="M262-80q-23 0-40.5-15T202-133l-82-747h720l-82 747q-2 23-19.5 38T698-80H262Zm-48-500 48 440h436l48-440H214Zm-7-60h546l20-180H187l20 180Zm239 373.5Q432-280 432-299q0-24 12.5-53t35.5-59q23 30 35.5 59t12.5 53q0 19-14 32.5T480-253q-20 0-34-13.5ZM556.5-224q31.5-31 31.5-75 0-47-28.5-100T480-500q-51 48-79.5 101T372-299q0 44 31.5 75t76.5 31q45 0 76.5-31ZM214-140h532-532Z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 -960 960 960"><path d="m393-165 279-335H492l36-286-253 366h154l-36 255Zm-73 85 40-280H160l360-520h80l-40 320h240L400-80h-80Zm154-396Z"/></symbol>
+    <symbol id="i-coffee" viewBox="0 -960 960 960"><path d="M442-242q-116 0-199-80t-83-195v-263q0-25 17.5-42.5T220-840h529q54 0 92.5 37t38.5 91q0 60-37 106t-94 46h-25v43q0 115-83 195t-199 80ZM220-620h444v-160H220v160Zm222 318q91 0 156.5-62T664-517v-43H220v43q0 91 65.5 153T442-302Zm282-318h25q33 0 52-28.5t19-63.5q0-29-21-48.5T749-780h-25v160ZM160-120v-60h640v60H160Zm282-440Z"/></symbol>
+    <symbol id="i-breastfeeding" viewBox="0 -960 960 960"><path d="M477-80q-42 0-81.5-9T324-112q-46-20-75-48.5T220-224v-231q0-31 23.5-57t60.5-46q38-20 83.5-31t92.5-11q47 0 92.5 11t83.5 31q38 20 61 46t23 57v231q0 17-7.5 33T711-161q-14 14-32.5 26.5T637-112q1-5 3-28 0-58-41-99t-99-41q-43 0-76 23t-50 59q32 8 58.5 11t46.5 3q17 0 27.5-1t13.5-1v104q-11 1-21.5 1.5T477-80Zm123-220q33 0 56.5-23.5T680-380q0-33-23.5-56.5T600-460q-33 0-56.5 23.5T520-380q0 33 23.5 56.5T600-300ZM480-640q50 0 85-34.5t35-85.5q0-50-35-85t-85-35q-51 0-85.5 35T360-760q0 51 34.5 85.5T480-640Z"/></symbol>
+    <symbol id="i-child-care" viewBox="0 -960 960 960"><path d="M552-515q-13-13-13-32t13-32q13-13 32-13t32 13q13 13 13 32t-13 32q-13 13-32 13t-32-13Zm-209 0q-13-13-13-32t13-32q13-13 32-13t32 13q13 13 13 32t-13 32q-13 13-32 13t-32-13Zm35 199q-46-30-72-79h348q-26 49-72 79t-102 30q-56 0-102-30Zm-37.5 167.5Q275-177 226-226t-77.5-114.5Q120-406 120-480t28.5-139.5Q177-685 226-734t114.5-77.5Q406-840 480-840t139.5 28.5Q685-783 734-734t77.5 114.5Q840-554 840-480t-28.5 139.5Q783-275 734-226t-114.5 77.5Q554-120 480-120t-139.5-28.5Zm351-119Q780-355 780-478t-87-215q-87-92-215-92h-18q-7 0-18 1-2 8-3.5 19t-1.5 19q0 25 16.5 41.5T495-688q12 0 20-1.5t15-1.5q10 0 17 5t7 15q0 16-15 24.5t-44 8.5q-46 0-77-31t-31-77q0-5 .5-13t2.5-13q-91 33-150.5 110T180-482q0 123 88.5 212.5T480-180q123 0 211.5-87.5ZM480-482Z"/></symbol>
+    <symbol id="i-delete" viewBox="0 -960 960 960"><path d="M261-120q-24.75 0-42.37-17.63Q201-155.25 201-180v-570h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438v-570ZM367-266h60v-399h-60v399Zm166 0h60v-399h-60v399ZM261-750v570-570Z"/></symbol>
+    <symbol id="i-add" viewBox="0 -960 960 960"><path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"/></symbol>
+    <symbol id="i-remove" viewBox="0 -960 960 960"><path d="M200-450v-60h560v60H200Z"/></symbol>
+    <symbol id="i-water-drop" viewBox="0 -960 960 960"><path d="M479-208q16 0 24.5-5.5T512-230q0-11-8.5-17t-25.5-6q-42 0-85.5-26.5T337-373q-2-9-9-14.5t-15-5.5q-11 0-17 8.5t-4 17.5q15 84 71 121.5T479-208Zm-227.5 34Q160-268 160-408q0-100 79.5-217.5T480-880q161 137 240.5 254.5T800-408q0 140-91.5 234T480-80q-137 0-228.5-94ZM666-216.5Q740-293 740-408q0-79-66.5-179.5T480-800Q353-688 286.5-587.5T220-408q0 115 74 191.5T480-140q112 0 186-76.5ZM480-480Z"/></symbol>
+    <symbol id="i-restaurant" viewBox="0 -960 960 960"><path d="M285-80v-368q-52-11-88.5-52.5T160-600v-280h60v280h65v-280h60v280h65v-280h60v280q0 58-36.5 99.5T345-448v368h-60Zm415 0v-320H585v-305q0-79 48-127t127-48v800h-60Z"/></symbol>
+    <symbol id="i-undo" viewBox="0 -960 960 960"><path d="M259-200v-60h310q70 0 120.5-46.5T740-422q0-69-50.5-115.5T569-584H274l114 114-42 42-186-186 186-186 42 42-114 114h294q95 0 163.5 64T800-422q0 94-68.5 158T568-200H259Z"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="app-header" id="appHeader">
+    <div class="app-header-inner">
+      <div class="header-info">
+        <span class="brand">Nenne</span>
+        <time id="clock" class="clock" datetime="">00:00</time>
+      </div>
+      <span id="ageBadge" class="badge">Age not set</span>
+      <button type="button" id="menuButton" class="icon-button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"></use></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <main id="main" class="app" tabindex="-1">
+
+    <!-- Card 1: Sleep and nap countdown -->
+    <section class="card card--sleep" id="sleepCard" aria-labelledby="sleepTitle">
+      <div class="card-head">
+        <h2 id="sleepTitle" class="title-icon">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bedtime"></use></svg>
+          <span>Sleep and naps</span>
+        </h2>
+        <span class="tag">
+          <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-wb-sunny"></use></svg>
+          Active time
+        </span>
+      </div>
+
+      <div class="target">
+        <p class="label">
+          <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-schedule"></use></svg>
+          <span>Best time to fall asleep</span>
+        </p>
+        <p class="aka">Also called the target sleep window</p>
+        <p class="target-time" id="napWindow">--:-- - --:--</p>
+        <p class="muted" id="napMeta"></p>
+      </div>
+
+      <div class="timer-hero">
+        <div class="dial" id="sleepDial" role="img" aria-label="Time until next nap">
+          <span class="dial-hub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bedtime"></use></svg></span>
+        </div>
+        <div class="countdown-block">
+          <p class="label" id="countdownLabel">Next nap in</p>
+          <div class="countdown" id="countdown" aria-hidden="true"></div>
+          <span class="sr-only" id="countdownSr" role="timer"></span>
+        </div>
+        <div class="drain" aria-hidden="true"><div class="drain-fill" id="sleepDrain"></div></div>
+      </div>
+
+      <div class="card-actions">
+        <div class="chip-row" role="group" aria-label="Adjust wake time">
+          <button type="button" class="chip" id="wakeEarlier" aria-label="Move wake time 5 minutes earlier">-5m</button>
+          <button type="button" class="chip chip--text" id="editWakeButton" aria-label="Edit wake time">
+            <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-edit"></use></svg>
+            <span>Edit time</span>
+          </button>
+          <button type="button" class="chip" id="wakeLater" aria-label="Move wake time 5 minutes later">+5m</button>
+        </div>
+        <button type="button" class="btn btn-primary" id="wakeButton">
+          <span class="btn-main">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wb-sunny"></use></svg>
+            <span>Baby Woke Up (Reset Timer)</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Card 2: Nursing and feeding -->
+    <section class="card card--feeding" id="feedingCard" aria-labelledby="feedingTitle">
+      <div class="card-head">
+        <h2 id="feedingTitle" class="title-icon">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-child-care"></use></svg>
+          <span>Nursing and Feeding</span>
+        </h2>
+        <span class="tag">
+          <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-water-drop"></use></svg>
+          Drink
+        </span>
+      </div>
+
+      <div class="row-between">
+        <div>
+          <p class="label">
+            <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-schedule"></use></svg>
+            <span>Last feed</span>
+          </p>
+          <p class="strong-line" id="lastFeed">No feeds recorded yet.</p>
+        </div>
+        <button type="button" class="chip chip--text" id="editFeedButton" aria-label="Edit or remove the last feed" hidden>
+          <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-edit"></use></svg>
+          <span>Edit</span>
+        </button>
+      </div>
+
+      <div class="timer-row" id="feedTimer" hidden>
+        <div class="dial dial--small" id="feedDial" role="img" aria-label="Time until next feed">
+          <span class="dial-hub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-child-care"></use></svg></span>
+        </div>
+        <div class="timer-text">
+          <p class="label" id="feedTimerLabel">Next nursing or formula feed in</p>
+          <div class="countdown countdown--small" id="feedCountdown" aria-hidden="true"></div>
+          <p class="safe-now" id="feedReady" hidden>
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check-circle"></use></svg>
+            <span>Ready</span>
+          </p>
+          <span class="sr-only" id="feedCountdownSr" role="timer"></span>
+          <div class="drain" aria-hidden="true"><div class="drain-fill" id="feedDrain"></div></div>
+        </div>
+      </div>
+
+      <div class="banner" id="feedBanner" data-tone="idle">
+        <span class="banner-tag">
+          <svg class="icon icon--small" id="feedBannerIcon" aria-hidden="true" focusable="false"><use href="#i-schedule"></use></svg>
+          <span id="feedBannerTag">Ready</span>
+        </span>
+        <p id="feedBannerText"></p>
+      </div>
+
+      <p class="muted" id="feedGuide"></p>
+
+      <div class="card-actions">
+        <p class="caution" id="feedCaution" hidden>
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-warning"></use></svg>
+          <span id="feedCautionText"></span>
+        </p>
+
+        <div class="action-group">
+          <div class="chip-row" role="group" aria-label="Adjust time of nursing">
+            <button type="button" class="chip" id="nursingEarlier" aria-label="Record nursing 5 minutes earlier">-5m</button>
+            <button type="button" class="chip chip--text chip--stack" id="nursingEdit" aria-label="Edit time of nursing">
+              <span class="chip-main"><svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-edit"></use></svg><span>Edit time</span></span>
+              <small id="nursingAt">Now</small>
+            </button>
+            <button type="button" class="chip" id="nursingLater" aria-label="Record nursing 5 minutes later" disabled>+5m</button>
+          </div>
+          <button type="button" class="btn btn-primary" id="nursingButton">
+            <span class="btn-main">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-breastfeeding"></use></svg>
+              <span>Record Nursing (Breast)</span>
+            </span>
+            <small>Quick digestion, about 2.5 hours</small>
+          </button>
+        </div>
+
+        <div class="action-group">
+          <div class="chip-row" role="group" aria-label="Adjust time of formula feed">
+            <button type="button" class="chip" id="formulaEarlier" aria-label="Record formula feed 5 minutes earlier">-5m</button>
+            <button type="button" class="chip chip--text chip--stack" id="formulaEdit" aria-label="Edit time of formula feed">
+              <span class="chip-main"><svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-edit"></use></svg><span>Edit time</span></span>
+              <small id="formulaAt">Now</small>
+            </button>
+            <button type="button" class="chip" id="formulaLater" aria-label="Record formula feed 5 minutes later" disabled>+5m</button>
+          </div>
+          <button type="button" class="btn btn-primary" id="formulaButton">
+            <span class="btn-main">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-local-drink"></use></svg>
+              <span>Record Formula Feed</span>
+            </span>
+            <small>Slower digestion, about 3 hours</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 3: Caffeine clearance -->
+    <section class="card card--caffeine" id="caffeineCard" aria-labelledby="caffeineTitle">
+      <div class="card-head">
+        <h2 id="caffeineTitle" class="title-icon">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-local-cafe"></use></svg>
+          <span>Caffeine clearance</span>
+        </h2>
+        <button type="button" class="icon-button icon-button--small" id="infoButton" aria-label="Show caffeine reference and safety guidelines" aria-expanded="false" aria-controls="infoPopover">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+        </button>
+      </div>
+
+      <div class="popover" id="infoPopover" role="region" aria-label="Caffeine reference and safety guidelines"></div>
+
+      <fieldset class="choice-group">
+        <legend>What did you drink?</legend>
+        <div class="choice-grid" id="beverageChoices"></div>
+      </fieldset>
+      <p class="muted" id="beverageHint"></p>
+
+      <div class="timer-row">
+        <div class="dial dial--small" id="caffeineDial" role="img" aria-label="Time until safe to nurse">
+          <span class="dial-hub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-local-cafe"></use></svg></span>
+        </div>
+        <div class="timer-text">
+          <p class="label">
+            <span id="caffeineTimerLabel">Safe to nurse in</span>
+          </p>
+          <p class="aka">Caffeine clearance</p>
+          <div class="countdown countdown--small" id="caffeineCountdown" aria-hidden="true"></div>
+          <p class="safe-now" id="caffeineSafe" hidden>
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check-circle"></use></svg>
+            <span>Safe now</span>
+          </p>
+          <span class="sr-only" id="caffeineCountdownSr" role="timer"></span>
+          <div class="drain" aria-hidden="true"><div class="drain-fill" id="caffeineDrain"></div></div>
+        </div>
+      </div>
+
+      <div>
+        <p class="strong-line" id="meterText"></p>
+        <p class="muted" id="dailyTotal"></p>
+      </div>
+
+      <div class="card-actions">
+        <button type="button" class="btn btn-primary" id="logBeverageButton">
+          <span class="btn-main">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-add"></use></svg>
+            <span>Log Beverage Now</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="card card--note" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle" class="title-icon">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+        <span>About Nenne</span>
+      </h2>
+      <p>Nenne is a Japanese baby word for sleeping. This app supports parents of babies aged 0 to 24 months.</p>
+      <p>It helps you track active time (wake time and naps), nursing and formula timing, and caffeine while nursing. Enter the wake time, and the background changes from soft blue to orange and then purple as the recommended nap time gets closer.</p>
+      <p class="muted">Nenne gives general guidance based on typical ranges. Every baby is different. It does not replace advice from your doctor or nurse.</p>
+    </section>
+  </main>
+
+  <!-- Off-canvas drawer -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu" inert>
+    <div class="drawer-head">
+      <h2>Menu</h2>
+      <button type="button" class="icon-button" id="drawerClose" aria-label="Close menu">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <button type="button" class="btn btn-secondary btn-block" id="settingsButton">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-tune"></use></svg>
+        <span>Baby profile and settings</span>
+      </button>
+
+      <div class="accordion">
+        <h3>
+          <button type="button" class="accordion-trigger" id="accA-trigger" aria-expanded="false" aria-controls="accA-panel">
+            <span class="trigger-label">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wb-sunny"></use></svg>
+              <span>Active Time (Wake Windows) and Nap Reference Table</span>
+            </span>
+            <svg class="icon chevron" aria-hidden="true" focusable="false"><use href="#i-keyboard-arrow-down"></use></svg>
+          </button>
+        </h3>
+        <div class="accordion-panel" id="accA-panel" role="region" aria-labelledby="accA-trigger">
+          <div class="accordion-inner" id="wakeReference"></div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <h3>
+          <button type="button" class="accordion-trigger" id="accB-trigger" aria-expanded="false" aria-controls="accB-panel">
+            <span class="trigger-label">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-child-care"></use></svg>
+              <span>Age-Specific Feeding and Digestion Guidelines</span>
+            </span>
+            <svg class="icon chevron" aria-hidden="true" focusable="false"><use href="#i-keyboard-arrow-down"></use></svg>
+          </button>
+        </h3>
+        <div class="accordion-panel" id="accB-panel" role="region" aria-labelledby="accB-trigger">
+          <div class="accordion-inner" id="feedingReference"></div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <h3>
+          <button type="button" class="accordion-trigger" id="accC-trigger" aria-expanded="false" aria-controls="accC-panel">
+            <span class="trigger-label">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-local-cafe"></use></svg>
+              <span>Caffeine Reference and Product Brand Breakdown</span>
+            </span>
+            <svg class="icon chevron" aria-hidden="true" focusable="false"><use href="#i-keyboard-arrow-down"></use></svg>
+          </button>
+        </h3>
+        <div class="accordion-panel" id="accC-panel" role="region" aria-labelledby="accC-trigger">
+          <div class="accordion-inner" id="caffeineReference"></div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-danger btn-block" id="clearDataButton">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-delete"></use></svg>
+        <span>Clear All Data</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Onboarding and settings modal -->
+  <dialog id="profileDialog" aria-labelledby="profileTitle">
+    <form id="profileForm" class="dialog-body" novalidate>
+      <h2 id="profileTitle">Welcome to Nenne</h2>
+      <p class="muted" id="profileIntro">Tell us a little about your baby so the timers fit their age. Everything stays on this device.</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="birthYear">Birth year</label>
+          <select id="birthYear" required></select>
+        </div>
+        <div class="field">
+          <label for="birthMonth">Birth month</label>
+          <select id="birthMonth" required></select>
+        </div>
+      </div>
+      <p class="note-line">
+        <svg class="icon icon--small" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+        <span>This app is for babies aged 0 to 24 months.</span>
+      </p>
+
+      <fieldset class="choice-group">
+        <legend>Default feeding preference</legend>
+        <div class="choice-grid choice-grid--three" id="feedingChoices">
+          <label class="choice"><input type="radio" name="feedingPref" value="breast"><span class="choice-face">Breastfeeding</span></label>
+          <label class="choice"><input type="radio" name="feedingPref" value="formula"><span class="choice-face">Formula</span></label>
+          <label class="choice"><input type="radio" name="feedingPref" value="mixed" checked><span class="choice-face">Mixed</span></label>
+        </div>
+      </fieldset>
+
+      <p class="form-error" id="profileError" role="alert"></p>
+
+      <div class="dialog-actions">
+        <button type="submit" class="btn btn-primary" id="profileSave">Save and start</button>
+        <button type="button" class="btn btn-secondary" id="profileCancel" hidden>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Edit time modal (last feed, wake time, or the time of the next feed) -->
+  <dialog id="editDialog" aria-labelledby="editTitle">
+    <form id="editForm" class="dialog-body" novalidate>
+      <h2 id="editTitle">Edit</h2>
+      <fieldset class="choice-group" id="editTypeGroup">
+        <legend>Feed type</legend>
+        <div class="choice-grid">
+          <label class="choice"><input type="radio" name="editType" value="breast"><span class="choice-face">Nursing</span></label>
+          <label class="choice"><input type="radio" name="editType" value="formula"><span class="choice-face">Formula</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="choice-group">
+        <legend>Time (24-hour)</legend>
+        <div class="field-row">
+          <div class="field"><label for="editHour">Hour</label><select id="editHour"></select></div>
+          <div class="field"><label for="editMinute">Minute</label><select id="editMinute"></select></div>
+        </div>
+      </fieldset>
+      <p class="muted">A time later than now is saved as yesterday.</p>
+      <p class="form-error" id="editError" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" id="editCancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="editDelete">Remove this feed</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Confirmation modal -->
+  <dialog id="confirmDialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+    <form method="dialog" class="dialog-body">
+      <h2 id="confirmTitle"></h2>
+      <p id="confirmMessage" class="muted"></p>
+      <div class="dialog-actions">
+        <button type="submit" class="btn btn-primary" id="confirmYes" value="confirm">Confirm</button>
+        <button type="submit" class="btn btn-secondary" value="cancel">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+</body>
+</html>

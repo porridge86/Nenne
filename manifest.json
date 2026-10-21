@@ -1,0 +1,29 @@
+{
+  "name": "Nenne",
+  "short_name": "Nenne",
+  "description": "Baby wake windows, feeding gaps and caffeine clearance for nursing parents.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#dcebfa",
+  "theme_color": "#2f5d8a",
+  "categories": [
+    "health",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
