@@ -48,6 +48,8 @@ You can optionally add Nenne to your phone's home screen for an app-like experie
 
 **Important:** Nenne provides general guidance, not medical advice. Sleep windows, feeding intervals, and caffeine estimates are not rules or guarantees. Every baby is different. Consult a healthcare professional if you have concerns about your baby's health, sleep, or feeding, or your caffeine intake while breastfeeding.
 
+
+
 ## Technology
 
 Built with **HTML, CSS, and vanilla JavaScript**, without frameworks or build steps.
@@ -111,6 +113,8 @@ sequenceDiagram
     end
 ```
 
+
+
 ---
 
 ## About the Project
@@ -131,6 +135,61 @@ The app was developed with **Claude (Free Plan, Sonnet 5.5)**. I kept the implem
 
 The process involved three rounds of revisions, mainly to refine the interface, clarify instructions, and correct behavior.
 
+
+### Reference Data Provided to the AI
+
+I provided Claude with age-based guidelines and estimated caffeine values to build the app's reference tables and calculations.
+
+#### Baby Sleep
+
+| Age | Wake window | Typical naps |
+|---|---|---|
+| Under 1 month | 35–60 min | 4–5+ |
+| 1–2 months | 45–90 min | 4–5 |
+| 3–4 months | 75–120 min | 3–4 |
+| 5–7 months | 120–180 min | 2–3 |
+| 8–10 months | 150–210 min | 2 |
+| 11–14 months | 180–240 min | 2 |
+| 15–24 months | 240–360 min | 1 afternoon nap |
+
+#### Feeding Guidelines
+
+| Age | Suggested feeding pattern |
+|---|---|
+| 0–1 month | Every 2–3 hours; 8–12+ feeds/day |
+| 2–3 months | Every 3–4 hours; 6–8 feeds/day |
+| 4–5 months | About every 4 hours; 5–6 feeds/day |
+| 6–8 months | About every 4 hours; around 5 feeds/day |
+| 9–11 months | Every 4–5 hours; 4–5 feeds/day |
+| 12–18 months | 1–2 feeds/day |
+| 19–24 months+ | As needed for comfort |
+
+The app uses estimated digestion times of **2.5 hours for breast milk** and **3 hours for formula**. These are guidelines only; feeding is never blocked by a timer.
+
+#### Caffeine Reference Data
+
+| Drink | Example brand | Reference serving | App value |
+|---|---|---|---:|
+| Coffee | Nescafé Gold Blend | 1 cup (2 g) | 60 mg |
+| Black tea | Twinings Earl Grey | 1 tea bag | 40 mg |
+| Green tea | Twinings Green Tea with Lemon | 1 tea bag | 25 mg |
+| Cola | Coca-Cola | 330 ml | 33 mg |
+| Energy drink | — | 250 ml | 110 mg |
+| Decaf coffee | — | 1 serving | 5 mg |
+| Water | — | Reference only | 0 mg |
+
+
+### Calculation Logic
+
+| Function | Rule used in the app |
+|---|---|
+| Next sleep time | Wake-up time + age-based wake window |
+| Next-feed countdown | Last feed time + 2.5 hours (breast milk) or 3 hours (formula) |
+| Caffeine total | Sum of the `mg` values for logged drinks |
+| Caffeine clearance timer | 150 minutes (2.5 hours) |
+| Daily caffeine guide | 200 mg guide; 300 mg maximum in the provided reference data |
+
+These calculations use simplified estimates and do not guarantee medical outcomes or safety.
 
 ### Testing
 
