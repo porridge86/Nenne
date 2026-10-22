@@ -36,7 +36,7 @@ You can optionally add Nenne to your phone's home screen for an app-like experie
 
 | Menu | Registration | Add to Home Screen |
 |---|---|---|
-| <img src="./IMG/menu.PNG" alt="menu" width="150"/> | <img src="./IMG/user_input.PNG" alt="user input" width="150"/> | <img src="./IMG/home.jpeg" alt="Home" width="150"/> |
+| <img src="./IMG/menu.PNG" alt="menu" width="150"/> | <img src="./IMG/user_input.PNG" alt="user input" width="150"/> | <img src="./IMG/Home.jpeg" alt="Home" width="150"/> |
 
 
 ## Privacy & Safety
